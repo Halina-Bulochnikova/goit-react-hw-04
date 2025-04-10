@@ -9,31 +9,21 @@ import fetchResults from '../../servis/api';
 const App = () => {
   const [results, setResults] = useState([]);
 
-
-  const handleSearch = (query) => {
-    console.log("Шукаємо:", query);
+  const handleSearch = async (query) => {
+    try {
+      console.log("Search", query);
+      const results = await fetchResults(query);
+      setResults(results);
+    } catch (error) {
+      console.error("Error search:", error);
+    }
   };
 
-  useEffect(() => {
-   
-  
-    const getData = async () => {
-      try {
-        const response = await fetchResults();
-        setResults(data.results)
-      }
-      catch (error) {
-        console.log(error);
-      }
-    }
-  }, []
-  )
-
-return (
-  <>
-    <SearchBar onSubmit={handleSearch} />
-    <ImageGallery results={results} />
-  </>
-);
-}
+  return (
+    <>
+      <SearchBar onSubmit={handleSearch} />
+      <ImageGallery results={results} />
+    </>
+  );
+};
 export default App;

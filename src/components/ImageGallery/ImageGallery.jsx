@@ -1,15 +1,12 @@
 import css from './ImageGallery.module.css';
+import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = (results) => {
+const ImageGallery = ({results}) => {
   return (
-    <ul>
-      {Array.isArray(results) &&
-        results.map((item) => (
-          <li key={item.id}>
-            <img src={item.urls.small} alt={item.alt_description} />
-            <p>{item.alt_description || "No foto"}</p>
-          </li>
-        ))}
+    <ul className={css.gallery}>
+      {results.map((result) => (
+        <ImageCard key={result.id} result={result} />
+      ))}
     </ul>
   );
 };
