@@ -1,11 +1,17 @@
+.section {
+  margin: 20px;
+  width: 1560px;
+  
+}
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px;
-  width: 1440px;
-  background-color: #3c4bbd;
+  margin: 20px;
+  width: 100%;
   padding: 16px;
+  background-color: #3c4bbd;
+
 }
 .searchForm {
   position: relative;
@@ -28,7 +34,6 @@
   border-color: white;
 }
 .searchIcon {
-  
 }
 
 .searchBtn:hover,

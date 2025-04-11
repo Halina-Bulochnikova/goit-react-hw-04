@@ -25,10 +25,10 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  min-width: 320px;
-  min-height: 100vh;
   font-family: sans-serif;
   line-height: 1.5;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 h1 {

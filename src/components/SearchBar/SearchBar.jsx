@@ -8,16 +8,16 @@ const SearchBar = ({ onSubmit }) => {
   const initialValues = {
     search: "",
   };
-    const handleSubmit = (values, { resetForm }) => {
+    const handleSubmit = (values, options) => {
       const query = values.search.trim();
       if (query) {
         onSubmit(query);
-        resetForm();
+        options.resetForm();
       }
     };
   return (
-    <section className={css.header}>
-      <header>
+    <section className={css.section} >
+      <header className={css.header}>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           <Form className={css.searchForm}>
             <button className={css.searchBtn} type="submit">
