@@ -1,13 +1,12 @@
-import css from './ImageCard.module.css';
+import css from "./ImageCard.module.css";
+import React from "react";
 
-const ImageCard = ({ result }) => {
-if (!result) return null;
-const { urls } = result;
+const ImageCard = ({ result, openModal }) => {
   return (
-    <li className={css.cardItem}>
+    <li className={css.cardItem} onClick={() => openModal(result)}>
       <img
         src={result.urls.small}
-        alt={result.alt_description}
+        alt={result.alt_description || "No description"}
         width={320}
         height={240}
       />

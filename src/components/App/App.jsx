@@ -3,44 +3,83 @@ import React from "react";
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import ImageGallery from "../ImageGallery/ImageGallery";
-import fetchResults from '../../servis/api';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import fetchResults from "../../servis/api";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ErrorMessage from "..//ErrorMessage/ErrorMessage";
+import Loader from "..//Loader/Loader";
+import Modal from "react-modal";
+import ImageModal from "../ImageModal/ImageModal";
 
 const App = () => {
   const [results, setResults] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-   const handleSearch = async (newQuery) => {
-     setQuery(newQuery);
-     setPage(1);
-     try {
-       const data = await fetchResults(newQuery, 1);
-       setResults(data.results);
-     } catch (error) {
-       console.error("Error search:", error);
-     }
-   };
+  const openModal = (image) => {
+    setIsOpen(true);
+    setSelectedImage(image);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setSelectedImage(null);
+  };
+
+  const handleSearch = async (newQuery) => {
+    setQuery(newQuery);
+    setPage(1);
+    setResults([]);
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await fetchResults(newQuery, 1);
+      setResults(data);
+    } catch (error) {
+      console.error("Error search:", error);
+      setError("Can try later");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (page <= 1 || !query) return;
+    if (page === 1 || !query) return;
 
     const getData = async () => {
+      setIsLoading(true);
       try {
-        const results = await fetchResults(query, page);
-        setResults((prev) => [...prev, ...results.results]);
+        const data = await fetchResults(query, page);
+        setResults((prev) => [...prev, ...data]);
       } catch (error) {
         console.error("Error search:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
+
     getData();
-  }, [page]);
-  
+  }, [page, query]);
+  console.log("Результати пошуку:", results);
+
+  if (error) {
+    return <ErrorMessage message={error} />;
+  }
+
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      <ImageGallery results={results} />
+      <ImageGallery results={results} openModal={openModal} />
+      {isLoading && <Loader />}
       <LoadMoreBtn setPage={setPage} />
+      <ImageModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        image={selectedImage}
+      />
     </>
   );
 };

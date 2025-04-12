@@ -8,12 +8,13 @@ const SearchBar = ({ onSubmit }) => {
   const initialValues = {
     search: "",
   };
-    const handleSubmit = (values, options) => {
+    const handleSubmit = (values, { resetForm }) => {
       const query = values.search.trim();
-      if (query) {
-        onSubmit(query);
-        options.resetForm();
+      if (!query) {
+        toast.error("Please enter your search");
       }
+      onSubmit(query);
+      resetForm();
     };
   return (
     <section className={css.section} >
