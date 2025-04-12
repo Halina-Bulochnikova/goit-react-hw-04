@@ -73,7 +73,7 @@ const App = () => {
       <SearchBar onSubmit={handleSearch} />
       <ImageGallery results={results} openModal={openModal} />
       {isLoading && <Loader />}
-      <LoadMoreBtn setPage={setPage} />
+      <LoadMoreBtn setPage={setPage} images={results} />
       <ImageModal
         isOpen={isOpen}
         closeModal={closeModal}
