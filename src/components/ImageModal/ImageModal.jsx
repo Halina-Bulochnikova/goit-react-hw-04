@@ -1,7 +1,6 @@
-import css from './ImageModal.module.css';
-import Modal from 'react-modal';
+import css from "./ImageModal.module.css";
+import Modal from "react-modal";
 import { useEffect } from "react";
-
 
 const ImageModal = ({ isOpen, closeModal, image }) => {
   useEffect(() => {
@@ -29,7 +28,11 @@ const ImageModal = ({ isOpen, closeModal, image }) => {
     >
       {image && (
         <div>
-          <img src={image.urls?.regular} alt={image.alt_description || "No description"} className={css.modalImage} />
+          <img
+            src={image.urls.regular}
+            alt={image.alt_description || "No description"}
+            className={css.modalImage}
+          />
         </div>
       )}
       <button onClick={closeModal} className={css.closeBtn}>

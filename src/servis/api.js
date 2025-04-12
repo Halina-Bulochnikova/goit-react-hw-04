@@ -14,7 +14,7 @@ const fetchResults = async (query, page = 1) => {
       },
     }
   );
-  
+
   return response.data.results;
 };
 

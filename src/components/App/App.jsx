@@ -39,8 +39,8 @@ const App = () => {
       const data = await fetchResults(newQuery, 1);
       setResults(data);
     } catch (error) {
-      console.error("Error search:", error);
-      setError("Can try later");
+      console.error("Я зараз все виправлю", error);
+      setError("Щось я втомився, спробуй пізніше");
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +55,7 @@ const App = () => {
         const data = await fetchResults(query, page);
         setResults((prev) => [...prev, ...data]);
       } catch (error) {
-        console.error("Error search:", error);
+        console.error("Упссс...щось пішло не так...", error);
       } finally {
         setIsLoading(false);
       }
@@ -63,7 +63,6 @@ const App = () => {
 
     getData();
   }, [page, query]);
-  console.log("Результати пошуку:", results);
 
   if (error) {
     return <ErrorMessage message={error} />;
