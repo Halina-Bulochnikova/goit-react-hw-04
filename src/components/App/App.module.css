@@ -48,6 +48,9 @@
   padding: 20px;
   background-color: #f8f9fa;
   min-width: 1140px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
 }
 .title {
   margin-bottom: 20px;
