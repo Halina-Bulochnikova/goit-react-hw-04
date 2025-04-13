@@ -1,4 +1,4 @@
-import css from "./App.module.css";
+import css from './App.module.css';
 import React from "react";
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
@@ -7,7 +7,7 @@ import fetchResults from "../../servis/api";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "..//ErrorMessage/ErrorMessage";
 import Loader from "..//Loader/Loader";
-import Modal from "react-modal";
+
 import ImageModal from "../ImageModal/ImageModal";
 
 const App = () => {
@@ -70,15 +70,19 @@ const App = () => {
 
   return (
     <>
-      <SearchBar onSubmit={handleSearch} />
-      <ImageGallery results={results} openModal={openModal} />
-      {isLoading && <Loader />}
-      <LoadMoreBtn setPage={setPage} images={results} />
-      <ImageModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        image={selectedImage}
-      />
+      <div className={css.container}>
+        <SearchBar onSubmit={handleSearch} />
+        <ImageGallery results={results} openModal={openModal} />
+        {isLoading && <Loader />}
+        {results.length > 0 && !isLoading && (
+          <LoadMoreBtn onClick={() => setPage((prev) => prev + 1)} />
+        )}
+        <ImageModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          image={selectedImage}
+        />
+      </div>
     </>
   );
 };

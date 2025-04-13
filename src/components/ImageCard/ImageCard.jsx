@@ -3,8 +3,8 @@ import React from "react";
 
 const ImageCard = ({ result, openModal }) => {
   return (
-    <li className={css.cardItem} onClick={() => openModal(result)}>
-      <img
+    <li className={css.cardItem} >
+      <img onClick={() => openModal(result)}
         src={result.urls.small}
         alt={result.alt_description || "No description"}
         width={320}

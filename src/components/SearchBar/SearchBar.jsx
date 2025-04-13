@@ -12,7 +12,9 @@ const SearchBar = ({ onSubmit }) => {
     const query = values.search.trim();
     if (!query) {
       toast.error("Здається, ти забув сказати, що хочеш знайти...");
+      return;
     }
+    
     onSubmit(query);
     resetForm();
   };
